@@ -1,0 +1,124 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>{{ title }}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <form
+      [formGroup]="form"
+      (keydown.enter)="submit()"
+      class="grid grid-cols-1 md:grid-cols-2 mt-6 gap-6"
+    >
+      <div class="flex flex-col">
+        <mat-form-field>
+          <mat-label>Name</mat-label>
+          <input matInput formControlName="name" />
+          <mat-error *ngIf="form.controls.description.hasError('invalid')">
+            {{ form.controls.description.getError("invalid") }}
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Description</mat-label>
+          <textarea
+            matInput
+            formControlName="description"
+            [cdkTextareaAutosize]="true"
+          ></textarea>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Brand</mat-label>
+          <mat-select formControlName="brand_id">
+            <mat-option *ngFor="let brand of brands" [value]="brand.id">
+              {{ brand.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Price</mat-label>
+          <input matInput type="number" formControlName="price" />
+          <span matTextPrefix>$. &nbsp;</span>
+          <mat-error *ngIf="form.controls.price.hasError('invalid')">
+            {{ form.controls.price.getError("invalid") }}
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Stock</mat-label>
+          <input matInput type="number" formControlName="stock" />
+          <mat-error *ngIf="form.controls.stock.hasError('invalid')">
+            {{ form.controls.stock.getError("invalid") }}
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Category</mat-label>
+          <mat-select formControlName="category_id">
+            <mat-option
+              *ngFor="let category of categories"
+              [value]="category.id"
+            >
+              {{ category.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div>
+          <mat-button-toggle-group multiple formControlName="genders">
+            <mat-button-toggle
+              [value]="gender.id"
+              *ngFor="let gender of genders"
+              >{{ gender.name }}</mat-button-toggle
+            >
+          </mat-button-toggle-group>
+        </div>
+        <div>
+          <mat-button-toggle-group multiple formControlName="sizes">
+            <mat-button-toggle [value]="size.id" *ngFor="let size of sizes">{{
+              size.name
+            }}</mat-button-toggle>
+          </mat-button-toggle-group>
+        </div>
+      </div>
+      <div class="flex flex-col">
+        <!-- sin el ngif sale un error-->
+        <mat-form-field *ngIf="colorPicker">
+          <mat-label>Color</mat-label>
+          <input
+            matInput
+            [(ngModel)]="colorPicker"
+            type="color"
+            [ngModelOptions]="{ standalone: true }"
+          />
+        </mat-form-field>
+        <div class="flex flex-wrap gap-2">
+          <div
+            class="w-10 h-10 rounded-full"
+            *ngFor="let color of form.value.colors"
+            [ngStyle]="{ backgroundColor: color }"
+          ></div>
+          <button
+            mat-mini-fab
+            matTooltip="Add color"
+            color="primary"
+            type="button"
+            (click)="addColor()"
+          >
+            <mat-icon>add</mat-icon>
+          </button>
+        </div>
+
+        <mat-divider class="mt-4"></mat-divider>
+        <mat-slide-toggle
+          formControlName="free_shipping"
+          color="primary"
+          class="mt-4"
+        >
+          Free shipping
+        </mat-slide-toggle>
+      </div>
+    </form>
+  </mat-card-content>
+  <mat-card-actions align="end">
+    <button mat-button class="mr-3" [disabled]="loading">Cancel</button>
+    <button mat-raised-button color="primary" [disabled]="loading">Save</button>
+  </mat-card-actions>
+  <mat-card-footer *ngIf="loading">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  </mat-card-footer>
+</mat-card>
