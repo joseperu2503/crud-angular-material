@@ -13,7 +13,7 @@ export class HttpService {
     private tokenService: TokenService
   ) { }
 
-  private apiUrl = `${environment.API_URL}`
+  private apiUrl = `${environment.APP_API_URL}`
 
   post<T>(query: string, body: any) {
     const headers = new HttpHeaders({

@@ -37,7 +37,7 @@ export class LoginComponent {
         .subscribe({
           next: response => {
             this.loading = false
-            this.router.navigate(['/products'])
+            this.router.navigate(['/my-products'])
           },
           error: error => {
             this.loading = false

@@ -1,0 +1,7 @@
+.active-link{
+  @apply bg-purple-100 font-medium text-purple-500
+}
+
+.body-height{
+  min-height: calc(100vh - 64px);
+}

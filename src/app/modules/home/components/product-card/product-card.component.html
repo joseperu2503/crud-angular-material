@@ -1,0 +1,14 @@
+<mat-card>
+  <img mat-card-image [src]="product?.images?.[0]" alt="Photo of a Shiba Inu" />
+  <mat-card-content>
+    <mat-card-title>{{ product?.name }}</mat-card-title>
+    <mat-card-subtitle>{{ product?.description }}</mat-card-subtitle>
+    <div class="mt-4">
+      <mat-card-title>$ {{ product?.price | number : "1.2-2" }}</mat-card-title>
+    </div>
+  </mat-card-content>
+  <mat-card-actions align="end" class="mt-4">
+    <button mat-button class="mr-2">Add to cart</button>
+    <button mat-raised-button color="primary">Buy</button>
+  </mat-card-actions>
+</mat-card>

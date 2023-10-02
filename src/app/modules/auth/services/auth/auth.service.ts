@@ -4,6 +4,7 @@ import { TokenService } from 'src/app/core/services/token/token.service';
 import { LoginForm, LoginResponse } from '../../models/login.model';
 import { tap } from 'rxjs';
 import { RegisterForm, RegisterResponse } from '../../models/register.model';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,8 @@ export class AuthService {
 
   constructor(
     private http: HttpService,
-    private tokenService: TokenService
+    private tokenService: TokenService,
+    private router: Router
   ) { }
 
   login(data: LoginForm) {
@@ -28,9 +30,7 @@ export class AuthService {
   }
 
   logout() {
-    return this.http.get<any>(`logout`)
-      .pipe(
-        tap(() => this.tokenService.removeToken())
-      )
+    this.tokenService.removeToken();
+    this.router.navigate(['/login'])
   }
 }

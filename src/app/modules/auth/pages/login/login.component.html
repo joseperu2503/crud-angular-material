@@ -13,6 +13,7 @@
           placeholder="joseperu2503@gmail.com"
           formControlName="email"
           name="email"
+          type="email"
         />
         <mat-icon fontIcon="alternate_email" matSuffix></mat-icon>
         <!-- validaciones del frontend -->
@@ -69,7 +70,11 @@
     </form>
     <div class="text-xs text-zinc-600 mt-4 pb-4">
       Don't have an account?
-      <button class="font-bold hover:underline" (click)="goRegister()">
+      <button
+        class="font-bold hover:underline"
+        (click)="goRegister()"
+        [disabled]="loading"
+      >
         Sign up for free
       </button>
     </div>

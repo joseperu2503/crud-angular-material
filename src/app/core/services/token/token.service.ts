@@ -23,7 +23,6 @@ export class TokenService {
   }
 
   isValidToken() {
-    console.log('isValidToken')
     const token = this.getToken()
     if (!token) {
       return false
@@ -33,7 +32,6 @@ export class TokenService {
     if (decodeToken && decodeToken?.exp) {
       const tokenDate = new Date(0)
       tokenDate.setUTCSeconds(decodeToken.exp)
-      console.log(tokenDate)
       const today = new Date()
       return tokenDate.getTime() > today.getTime()
     }

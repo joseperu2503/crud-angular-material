@@ -1,3 +1,5 @@
+import { Errors } from "src/app/core/models/errors.model";
+
 export interface RegisterForm {
   name: string;
   email: string;
@@ -5,7 +7,7 @@ export interface RegisterForm {
   password_confirmation: string;
 }
 
-export interface RegisterErrors {
+export interface RegisterErrors extends Errors {
   name?: string[];
   email?: string[];
   password?: string[];

@@ -1,1 +1,126 @@
-<p>register works!</p>
+<mat-card>
+  <mat-card-content>
+    <h2 class="font-medium text-xl text-gray-800">Create an account</h2>
+    <form action="" [formGroup]="form" class="flex flex-col gap-4 mt-8">
+      <mat-form-field>
+        <mat-label>Name</mat-label>
+        <input
+          matInput
+          placeholder="Jose Perez"
+          formControlName="name"
+          name="name"
+        />
+        <mat-error *ngIf="form.controls.name.hasError('required')">
+          Name is required.
+        </mat-error>
+        <mat-error *ngIf="form.controls.name.hasError('invalid')">
+          {{ form.controls.name.getError("invalid") }}
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Email</mat-label>
+        <input
+          matInput
+          placeholder="user@mail.com"
+          formControlName="email"
+          name="email"
+        />
+        <mat-error *ngIf="form.controls.email.hasError('required')">
+          Email is required.
+        </mat-error>
+        <mat-error *ngIf="form.controls.email.hasError('email')">
+          Please enter a valid email.
+        </mat-error>
+        <mat-error *ngIf="form.controls.email.hasError('invalid')">
+          {{ form.controls.email.getError("invalid") }}
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Password</mat-label>
+        <input
+          matInput
+          placeholder="12345678"
+          formControlName="password"
+          [type]="showPassword ? 'text' : 'password'"
+          name="password"
+        />
+        <mat-error *ngIf="form.controls.password.hasError('required')">
+          Password is required.
+        </mat-error>
+        <button
+          mat-icon-button
+          matSuffix
+          (click)="showPassword = !showPassword"
+        >
+          <mat-icon>
+            {{ showPassword ? "visibility_off" : "visibility" }}
+          </mat-icon>
+        </button>
+        <mat-error *ngIf="form.controls.password.hasError('invalid')">
+          {{ form.controls.password.getError("invalid") }}
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Confirm Password</mat-label>
+        <input
+          matInput
+          placeholder="12345678"
+          formControlName="password_confirmation"
+          [type]="showPassword ? 'text' : 'password'"
+          name="password"
+          [errorStateMatcher]="errorMatcher"
+        />
+        <button
+          mat-icon-button
+          matSuffix
+          (click)="showPassword = !showPassword"
+        >
+          <mat-icon>
+            {{ showPassword ? "visibility_off" : "visibility" }}
+          </mat-icon>
+        </button>
+        <mat-error
+          *ngIf="form.controls.password_confirmation.hasError('required')"
+        >
+          Confirm the password.
+        </mat-error>
+        <mat-error
+          *ngIf="
+            form.hasError('match_password') &&
+            form.value.password &&
+            form.value.password_confirmation
+          "
+        >
+          Passwords don't match.
+        </mat-error>
+        <mat-error
+          *ngIf="form.controls.password_confirmation.hasError('invalid')"
+        >
+          {{ form.controls.password_confirmation.getError("invalid") }}
+        </mat-error>
+      </mat-form-field>
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="register()"
+        [disabled]="loading"
+        type="button"
+      >
+        <div class="flex gap-4">
+          <mat-spinner diameter="20" *ngIf="loading"></mat-spinner>
+          Create acccount
+        </div>
+      </button>
+      <span class="text-xs text-zinc-600 text-center">
+        Already have an account?
+        <button
+          class="font-bold hover:underline"
+          (click)="goLogin()"
+          [disabled]="loading"
+        >
+          Log in
+        </button>
+      </span>
+    </form>
+  </mat-card-content>
+</mat-card>

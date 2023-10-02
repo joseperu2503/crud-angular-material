@@ -35,4 +35,12 @@ export class MyProductsComponent {
         }
       )
   }
+
+  editProduct(productId: number) {
+    this.router.navigate([`product/${productId}`])
+  }
+
+  createProduct() {
+    this.router.navigate([`create-product`])
+  }
 }

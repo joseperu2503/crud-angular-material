@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from 'src/app/core/services/http/http.service';
-import { Product, ProductForm, ProductFormDataResponse } from '../../models/product.model';
+import { Product, ProductForm, ProductFormDataResponse, ProductOperationResponse } from '../../models/product.model';
 import { ResponsePaginate } from 'src/app/core/models/response-paginate.model';
 
 @Injectable({
@@ -21,11 +21,11 @@ export class ProductService {
   }
 
   createProduct(productForm: ProductForm) {
-    return this.http.post('products', productForm)
+    return this.http.post<ProductOperationResponse>('products', productForm)
   }
 
   updateProduct(productId: number, productForm: ProductForm) {
-    return this.http.put(`products/${productId}`, productForm)
+    return this.http.put<ProductOperationResponse>(`products/${productId}`, productForm)
   }
 
   deleteProduct(productForm: number) {
