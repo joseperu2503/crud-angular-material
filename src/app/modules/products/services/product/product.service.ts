@@ -12,8 +12,8 @@ export class ProductService {
     private http: HttpService,
   ) { }
 
-  getMyProducts() {
-    return this.http.get<ResponsePaginate<Product>>('my-products')
+  getMyProducts(page: number) {
+    return this.http.get<ResponsePaginate<Product>>(`my-products?page=${page}`)
   }
 
   getProduct(productId: number) {

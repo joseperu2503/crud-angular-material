@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ProductService } from '../../services/product/product.service';
 import { NotificationService } from 'src/app/core/services/notification/notification.service';
 import { Product } from '../../models/product.model';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-my-products',
@@ -20,17 +21,26 @@ export class MyProductsComponent {
   columns: string[] = ['name', 'price', 'stock', 'actions']
   loading: boolean = false
 
-  ngOnInit(): void {
-    this.loading = true
-    this.getProducts()
+  pagination = {
+    currentPage: 1,
+    length: 0
   }
 
-  getProducts() {
+  ngOnInit(): void {
     this.loading = true
-    this.productService.getMyProducts()
+    this.getProducts(this.pagination.currentPage)
+  }
+
+  getProducts(page: number) {
+    this.loading = true
+    this.productService.getMyProducts(page)
       .subscribe(
         response => {
           this.products = response.data
+          this.pagination = {
+            currentPage: response.meta.current_page,
+            length: response.meta.total
+          }
           this.loading = false
         }
       )
@@ -42,5 +52,9 @@ export class MyProductsComponent {
 
   createProduct() {
     this.router.navigate([`create-product`])
+  }
+
+  changePage(event: PageEvent) {
+    this.getProducts(event.pageIndex + 1)
   }
 }
