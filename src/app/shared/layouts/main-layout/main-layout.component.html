@@ -1,17 +1,27 @@
 <div class="bg-violet-50 bg-opacity-30">
   <mat-toolbar color="primary" class="fixed top-0 z-10">
-    <button mat-icon-button (click)="drawer.toggle()">
+    <button mat-icon-button (click)="toggleDrawer()" *ngIf="user">
       <mat-icon>menu</mat-icon>
     </button>
-    <span>Crud Angular Material</span>
+    <a routerLink="/">Crud Angular Material</a>
     <span class="flex-1"></span>
-    <button mat-icon-button [matMenuTriggerFor]="menu">
+    <button
+      mat-button
+      *ngIf="!user"
+      color="white"
+      class="mr-2"
+      (click)="goRegister()"
+    >
+      Register
+    </button>
+    <button mat-raised-button *ngIf="!user" (click)="goLogin()">Login</button>
+    <button mat-icon-button [matMenuTriggerFor]="menu" *ngIf="user">
       <mat-icon>person</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
       <div class="px-3 py-3">
-        <div class="font-medium text-gray-700">Jose Perez</div>
-        <div class="text-sm text-gray-500">joseperez@gmail.com</div>
+        <div class="font-medium text-gray-700">{{ user?.name }}</div>
+        <div class="text-sm text-gray-500">{{ user?.email }}</div>
       </div>
 
       <button mat-menu-item><mat-icon>person</mat-icon>Profile</button>
@@ -24,7 +34,7 @@
   </mat-toolbar>
   <div class="pt-16 min-h-screen">
     <mat-drawer-container class="w-full" autosize>
-      <mat-drawer #drawer class="w-60" mode="over">
+      <mat-drawer #drawer class="w-60" mode="over" *ngIf="user">
         <div class="flex flex-col justify-between h-full px-4 py-8">
           <div class="flex flex-col gap-3">
             <a
@@ -33,7 +43,7 @@
               routerLinkActive="active-link"
               [routerLinkActiveOptions]="{ exact: true }"
               *ngFor="let item of menuItems"
-              (click)="drawer.toggle()"
+              (click)="toggleDrawer()"
               matRipple
             >
               <mat-icon class="mr-2">{{ item.icon }}</mat-icon>

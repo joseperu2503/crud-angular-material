@@ -2,6 +2,22 @@ import { Injectable } from '@angular/core';
 import { getCookie, removeCookie, setCookie } from 'typescript-cookie'
 import jwt_decode, { JwtPayload } from 'jwt-decode'
 
+interface JwtResponse extends JwtPayload {
+  name: string;
+  id: number;
+  email: string;
+}
+
+interface ValidToken {
+  isValid: true;
+  decodedToken: JwtResponse;
+}
+
+interface InvalidToken {
+  isValid: false;
+  decodedToken: null;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -22,19 +38,40 @@ export class TokenService {
     removeCookie('token')
   }
 
-  isValidToken() {
-    const token = this.getToken()
-    if (!token) {
-      return false
+  validateToken(): ValidToken | InvalidToken {
+
+    const decodedToken = this.decodeToken()
+    if (!decodedToken) {
+      return {
+        isValid: false,
+        decodedToken: null
+      }
     }
 
-    const decodeToken = jwt_decode<JwtPayload>(token)
-    if (decodeToken && decodeToken?.exp) {
+    if (decodedToken && decodedToken?.exp) {
       const tokenDate = new Date(0)
-      tokenDate.setUTCSeconds(decodeToken.exp)
+      tokenDate.setUTCSeconds(decodedToken.exp)
       const today = new Date()
-      return tokenDate.getTime() > today.getTime()
+
+      if (tokenDate.getTime() > today.getTime()) {
+        return {
+          isValid: true,
+          decodedToken: decodedToken
+        }
+      }
     }
-    return false
+    return {
+      isValid: false,
+      decodedToken: null
+    }
+  }
+
+  decodeToken() {
+    const token = this.getToken()
+    if (!token) {
+      return null
+    }
+    const decodedToken = jwt_decode<JwtResponse>(token)
+    return decodedToken
   }
 }

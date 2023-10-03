@@ -5,6 +5,7 @@ import { LoginForm, LoginResponse } from '../../models/login.model';
 import { tap } from 'rxjs';
 import { RegisterForm, RegisterResponse } from '../../models/register.model';
 import { Router } from '@angular/router';
+import { UserAuthService } from 'src/app/core/services/user-auth/user-auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,8 @@ export class AuthService {
   constructor(
     private http: HttpService,
     private tokenService: TokenService,
-    private router: Router
+    private router: Router,
+    private userAuthService: UserAuthService
   ) { }
 
   login(data: LoginForm) {
@@ -31,6 +33,7 @@ export class AuthService {
 
   logout() {
     this.tokenService.removeToken();
-    this.router.navigate(['/login'])
+    this.userAuthService.verifyAuth()
+    this.router.navigate(['/'])
   }
 }

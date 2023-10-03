@@ -1,15 +1,16 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
-import { TokenService } from '../../services/token/token.service';
+import { UserAuthService } from '../../services/user-auth/user-auth.service';
 
 export const redirectGuard: CanActivateFn = (route, state) => {
 
   const router = inject(Router)
-  const tokenService = inject(TokenService)
-  console.log('redirect')
+  const userAuthService = inject(UserAuthService)
 
-  const isValidToken = tokenService.isValidToken()
-  if (isValidToken) {
+  // console.log('redirect')
+
+  const isValid = userAuthService.verifyAuth()
+  if (isValid) {
     router.navigate(['/my-products'])
   }
 
