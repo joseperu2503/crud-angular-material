@@ -5,15 +5,11 @@
     </button>
     <a routerLink="/">Crud Angular Material</a>
     <span class="flex-1"></span>
-    <button
-      mat-button
-      *ngIf="!user"
-      color="white"
-      class="mr-2"
-      (click)="goRegister()"
-    >
-      Register
-    </button>
+    <div class="mr-2 hidden sm:block">
+      <button mat-button *ngIf="!user" color="white" (click)="goRegister()">
+        Register
+      </button>
+    </div>
     <button mat-raised-button *ngIf="!user" (click)="goLogin()">Login</button>
     <button mat-icon-button [matMenuTriggerFor]="menu" *ngIf="user">
       <mat-icon>person</mat-icon>
