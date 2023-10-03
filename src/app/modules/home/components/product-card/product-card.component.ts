@@ -8,4 +8,10 @@ import { Product } from 'src/app/modules/products/models/product.model';
 })
 export class ProductCardComponent {
   @Input() product?: Product
+
+  imageError = false
+
+  onImageError() {
+    this.imageError = true
+  }
 }

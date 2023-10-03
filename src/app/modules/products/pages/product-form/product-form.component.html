@@ -175,7 +175,7 @@
     <button
       mat-button
       class="mr-3"
-      [disabled]="loading"
+      [disabled]="loading || loadingImage"
       type="button"
       (click)="cancel()"
     >
@@ -184,14 +184,14 @@
     <button
       mat-raised-button
       color="primary"
-      [disabled]="loading"
+      [disabled]="loading || loadingImage"
       type="button"
       (click)="submit()"
     >
       Save
     </button>
   </mat-card-actions>
-  <mat-card-footer *ngIf="loading">
+  <mat-card-footer *ngIf="loading || loadingImage">
     <mat-progress-bar mode="indeterminate"></mat-progress-bar>
   </mat-card-footer>
 </mat-card>
