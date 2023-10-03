@@ -12,7 +12,7 @@ export class HomeService {
     private http: HttpService
   ) { }
 
-  getProducts() {
-    return this.http.get<ResponsePaginate<Product>>('products')
+  getProducts(page: number) {
+    return this.http.get<ResponsePaginate<Product>>(`products?page=${page}`)
   }
 }

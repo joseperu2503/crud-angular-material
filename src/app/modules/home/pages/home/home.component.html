@@ -4,3 +4,6 @@
     *ngFor="let product of products"
   ></app-product-card>
 </div>
+<div *ngIf="loading" class="flex justify-center">
+  <mat-spinner diameter="50"></mat-spinner>
+</div>
