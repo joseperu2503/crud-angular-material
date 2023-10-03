@@ -13,7 +13,14 @@
     class="h-[300px] object-cover"
   />
   <mat-card-header>
-    <mat-card-title>{{ product?.name }}</mat-card-title>
+    <div>
+      <div class="mb-2">
+        <mat-chip>{{ product?.brand?.name ?? 'Not brand' }}</mat-chip>
+      </div>
+      <div>
+        <mat-card-title>{{ product?.name }}</mat-card-title>
+      </div>
+    </div>
   </mat-card-header>
   <mat-card-content>
     <mat-card-subtitle>{{ product?.description }}</mat-card-subtitle>
