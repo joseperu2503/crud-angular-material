@@ -1,7 +1,6 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { TokenService } from '../token/token.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,48 +9,27 @@ export class HttpService {
 
   constructor(
     private http: HttpClient,
-    private tokenService: TokenService
   ) { }
 
   private apiUrl = `${environment.APP_API_URL}`
 
-  post<T>(query: string, body: any) {
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${this.getToken()}`
-    });
-
+  get<T>(query: string) {
     const url = `${this.apiUrl}/${query}`;
-    return this.http.post<T>(url, body, { headers })
+    return this.http.get<T>(url)
   }
 
-  get<T>(query: string) {
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${this.getToken()}`
-    });
-
+  post<T>(query: string, body: any) {
     const url = `${this.apiUrl}/${query}`;
-    return this.http.get<T>(url, { headers })
+    return this.http.post<T>(url, body)
   }
 
   put<T>(query: string, body: any) {
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${this.getToken()}`
-    });
-
     const url = `${this.apiUrl}/${query}`;
-    return this.http.put<T>(url, body, { headers })
+    return this.http.put<T>(url, body)
   }
 
   delete<T>(query: string) {
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${this.getToken()}`
-    });
-
     const url = `${this.apiUrl}/${query}`;
-    return this.http.delete<T>(url, { headers })
-  }
-
-  getToken() {
-    return this.tokenService.getToken()
+    return this.http.delete<T>(url)
   }
 }

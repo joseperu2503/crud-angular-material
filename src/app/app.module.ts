@@ -7,7 +7,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { MainLayoutComponent } from './shared/layouts/main-layout/main-layout.component';
 import { SharedModule } from './shared/shared.module';
-import { ErrorInterceptor } from './core/interceptors/error.interceptor';
+import { ErrorInterceptor } from './core/interceptors/error/error.interceptor';
+import { TokenInterceptor } from './core/interceptors/token/token.interceptor';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,11 @@ import { ErrorInterceptor } from './core/interceptors/error.interceptor';
       useClass: ErrorInterceptor,
       multi: true,
     },
-
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true,
+    },
   ],
   bootstrap: [AppComponent]
 })
