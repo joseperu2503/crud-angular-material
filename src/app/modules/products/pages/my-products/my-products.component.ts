@@ -34,16 +34,20 @@ export class MyProductsComponent {
   getProducts(page: number) {
     this.loading = true
     this.productService.getMyProducts(page)
-      .subscribe(
-        response => {
+      .subscribe({
+        next: response => {
           this.products = response.data
           this.pagination = {
             currentPage: response.meta.current_page,
             length: response.meta.total
           }
           this.loading = false
+        },
+        error: error => {
+          this.notificationService.error('An error occurred while loading the products.')
+          this.loading = false
         }
-      )
+      })
   }
 
   editProduct(productId: number) {

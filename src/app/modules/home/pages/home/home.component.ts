@@ -48,6 +48,7 @@ export class HomeComponent implements AfterViewInit {
         },
         error: error => {
           this.notificationService.error('An error occurred while loading the products.')
+          this.loading = false
         }
       })
   }
