@@ -4,18 +4,18 @@
     mat-card-image
     [src]="product?.images?.[0]"
     (error)="onImageError()"
-    class="h-[300px] object-cover"
+    class="h-[200px] object-contain"
   />
   <img
     *ngIf="imageError"
     mat-card-image
     src="/assets/no-image.jpg"
-    class="h-[300px] object-cover"
+    class="h-[200px] object-contain"
   />
   <mat-card-header>
     <div>
       <div class="mb-2">
-        <mat-chip>{{ product?.brand?.name ?? 'Not brand' }}</mat-chip>
+        <mat-chip>{{ product?.brand?.name ?? "Not brand" }}</mat-chip>
       </div>
       <div>
         <mat-card-title>{{ product?.name }}</mat-card-title>
