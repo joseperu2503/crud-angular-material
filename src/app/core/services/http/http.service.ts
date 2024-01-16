@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
@@ -13,9 +13,9 @@ export class HttpService {
 
   private apiUrl = `${environment.APP_API_URL}`
 
-  get<T>(query: string) {
+  get<T>(query: string, params?: HttpParams) {
     const url = `${this.apiUrl}/${query}`;
-    return this.http.get<T>(url)
+    return this.http.get<T>(url, { params })
   }
 
   post<T>(query: string, body: any) {

@@ -1,9 +1,60 @@
-<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-  <app-product-card
-    [product]="product"
-    *ngFor="let product of products"
-  ></app-product-card>
-</div>
-<div *ngIf="loading" class="flex justify-center">
-  <mat-spinner diameter="50"></mat-spinner>
+<div class="grid grid-cols-12 gap-8">
+  <div class="col-span-4">
+    <div class="text-2xl font-semibold mb-8">Filters</div>
+    <form [formGroup]="filter" class="grid grid-cols-1 gap-6">
+      <mat-form-field>
+        <mat-label>Search</mat-label>
+        <input matInput formControlName="search" />
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Brand</mat-label>
+        <mat-select formControlName="brandId" (valueChange)="changeFilter()">
+          <mat-option
+            *ngFor="let brand of filterData.brands"
+            [value]="brand.id"
+          >
+            {{ brand.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Category</mat-label>
+        <mat-select formControlName="categoryId" (valueChange)="changeFilter()">
+          <mat-option
+            *ngFor="let category of filterData.categories"
+            [value]="category.id"
+          >
+            {{ category.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div class="flex flex-col">
+        <mat-label class="text-lg font-medium">Price</mat-label>
+        <mat-slider [max]="4000" [min]="0" [discrete]="true">
+          <input
+            matSliderStartThumb
+            formControlName="minPrice"
+            (dragEnd)="changeFilter()"
+          />
+          <input
+            matSliderEndThumb
+            formControlName="maxPrice"
+            (dragEnd)="changeFilter()"
+          />
+        </mat-slider>
+      </div>
+    </form>
+  </div>
+  <div class="col-span-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <app-product-card
+        [product]="product"
+        *ngFor="let product of products"
+      ></app-product-card>
+    </div>
+    <div *ngIf="loading" class="flex justify-center">
+      <mat-spinner diameter="50"></mat-spinner>
+    </div>
+  </div>
 </div>
