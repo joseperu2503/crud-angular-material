@@ -12,7 +12,7 @@
       </mat-form-field>
       <mat-form-field>
         <mat-label>Brand</mat-label>
-        <mat-select formControlName="brandId" (valueChange)="changeFilter()">
+        <mat-select formControlName="brandId">
           <mat-option
             *ngFor="let brand of filterData.brands"
             [value]="brand.id"
@@ -23,7 +23,7 @@
       </mat-form-field>
       <mat-form-field>
         <mat-label>Category</mat-label>
-        <mat-select formControlName="categoryId" (valueChange)="changeFilter()">
+        <mat-select formControlName="categoryId">
           <mat-option
             *ngFor="let category of filterData.categories"
             [value]="category.id"
