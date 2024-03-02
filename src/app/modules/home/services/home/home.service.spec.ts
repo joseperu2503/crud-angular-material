@@ -7,6 +7,7 @@ import {
 } from '@angular/common/http/testing';
 import { FilterData } from '../../models/filter-data.model';
 import { environment } from 'src/environments/environment';
+import { generateFilterData } from '../../models/filter.data.mock';
 
 fdescribe('HomeService', () => {
   let service: HomeService;
@@ -27,12 +28,7 @@ fdescribe('HomeService', () => {
   describe('tests for getFilterData', () => {
     it('should return a filter data', (doneFn) => {
       //Arrange
-      const mockData: FilterData = {
-        brands: [],
-        categories: [],
-        genders: [],
-        sizes: [],
-      };
+      const mockData: FilterData = generateFilterData();
 
       //Act
       service.getFilterData().subscribe((response) => {
